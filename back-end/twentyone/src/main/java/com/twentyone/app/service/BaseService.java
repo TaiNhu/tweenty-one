@@ -5,9 +5,9 @@ import java.util.Optional;
 
 public interface BaseService<E, K> {
 
-	public void insert(E entity);
-	public void update(E entity);
-	public void delete(E entity);
+	public void insert(E entity) throws Exception;
+	public void update(E entity) throws Exception;
+	public void delete(E entity) throws Exception;
 	public List<E> findAll();
 	public Optional<E> findById(K key);
 }

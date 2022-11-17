@@ -2,6 +2,7 @@ package com.twentyone.app.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,16 +18,16 @@ import lombok.Data;
 public class User {
 	
 	@Id
-	String userName;
-	String password;
-	String image;
-	String email;
-	String role;
+	private String userName;
+	private String password;
+	private String image = "\\images\\user.png";
+	private String email;
+	private String role = "USER";
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
-	List<AnimeList> animeList;
+	private List<AnimeList> animeList;
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
-	List<Review> review;
+	private List<Review> review;
  	
 }

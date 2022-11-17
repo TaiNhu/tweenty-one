@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,6 +33,7 @@ import com.twentyone.app.service.impl.UserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -90,22 +93,22 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/404page");
 
 		// Cau hinh cho form login
-		http.formLogin()
-		.loginPage("/login")
-		.loginProcessingUrl("/login")
-		.defaultSuccessUrl("/login/success", false)
-		.failureUrl("/login/failure");
 
 		// Cau hinh dang xuat khoi chuong trinh
 		http.logout()
-		.logoutUrl("/logout")
-		.logoutSuccessUrl("/");
+		.logoutUrl("/logout").disable();
 		
 		
 
 		// Cau hinh remember me
 		http.authorizeRequests().and().rememberMe().tokenValiditySeconds(86400);
 	}
+	
+	 @Override
+	    @Bean
+	    public AuthenticationManager authenticationManagerBean() throws Exception {
+	        return super.authenticationManagerBean();
+	    }
 
 	@Bean
 	public BCryptPasswordEncoder getPasswordEncoder() {

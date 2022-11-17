@@ -5,11 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,13 +24,19 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.twentyone.app.entities.User;
 import com.twentyone.app.service.UserService;
+
+import lombok.NonNull;
 
 @RestController
 public class LoginRestController {
@@ -31,6 +44,9 @@ public class LoginRestController {
 	
 	@Autowired
 	UserService userService;
+
+	@Autowired
+    private AuthenticationManager authenticationManager;
 	
 	@GetMapping("/login")
 	public ResponseEntity login(@AuthenticationPrincipal OAuth2User user, @RequestParam Optional<String> logout, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -51,14 +67,12 @@ public class LoginRestController {
         return ResponseEntity.badRequest().build();
 	}
 	
+	@ResponseBody
 	@PostMapping("/login")
-	public ResponseEntity appLogin(@RequestBody User user) {
-		Optional<User> userChecked = userService.checkLogin(user);
-		if(!userChecked.isEmpty()) {
-			return ResponseEntity.ok(userChecked.get());
-		} else {
-			return ResponseEntity.noContent().build();
-		}
+	public Object appLogin(@RequestBody User user) {
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 	
 	@GetMapping("/logout")
@@ -69,10 +83,20 @@ public class LoginRestController {
 		return ResponseEntity.ok().build();
 	}
 	
-//	@ResponseBody
-//	@PostMapping("/registration")
-//	public ReponseEntity registration(@RequestBody User user) {
-//		
-//	}
+	
+	@RequestMapping(value = "/registration", method =RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity<User> registration(@RequestBody Optional<User> user) {
+		try {
+			if(!user.isEmpty()) {
+				userService.insert(user.get());
+				return ResponseEntity.ok(user.get());
+			}
+			return ResponseEntity.badRequest().build();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseEntity.badRequest().build();
+		}
+	}
 
 }

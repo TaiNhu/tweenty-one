@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="submit" onclick="change()"/>
+	<script>
+		const input = document.querySelector("input[type='submit']")
+		function change() {
+			alert("vao")
+			const data = JSON.stringify({
+				userName : "test1",
+				password : "pass"
+			})
+			fetch("http://localhost:8080/logout").then(() => alert("xong")).catch(() => alert("loi"))
+		}
+	</script>
+</body>
+</html>
