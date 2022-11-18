@@ -19,6 +19,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -66,7 +68,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 					Authentication authentication) throws IOException, ServletException {
 				// TODO Auto-generated method stub
 
-				response.sendRedirect("/login");
+				 response.sendRedirect("/index.html");
 			}
 		}).and().logout().logoutSuccessHandler(new LogoutSuccessHandler() {
 
