@@ -14,7 +14,13 @@
 				userName : "test1",
 				password : "pass"
 			})
-			fetch("http://localhost:8080/logout").then(() => alert("xong")).catch(() => alert("loi"))
+			fetch("http://localhost:8080/login", {
+				method: "POST",
+				body: data,
+				headers: {
+					"Content-type": "application/json"
+				}
+			}).then(() => alert("xong")).catch(() => alert("loi"))
 		}
 	</script>
 </body>
