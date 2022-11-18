@@ -96,7 +96,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
 		// Cau hinh dang xuat khoi chuong trinh
 		http.logout()
-		.logoutUrl("/logout").disable();
+		.logoutUrl("/logout");
 		
 		
 

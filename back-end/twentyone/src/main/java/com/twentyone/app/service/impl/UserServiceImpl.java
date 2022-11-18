@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService{
 	            newUser.setUserName(user.getAttributes().get("at_hash").toString());
 	            newUser.setEmail(email);
 	            newUser.setRole("USER");
-	            newUser.setImage(user.getAttribute(email));
 	            newUser.setImage(user.getAttributes().get("picture").toString());
 	            uDAO.save(newUser);
 	            return newUser;

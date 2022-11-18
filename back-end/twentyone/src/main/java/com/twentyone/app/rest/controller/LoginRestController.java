@@ -67,12 +67,16 @@ public class LoginRestController {
         return ResponseEntity.badRequest().build();
 	}
 	
-	@ResponseBody
-	@PostMapping("/login")
-	public Object appLogin(@RequestBody User user) {
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	@RequestMapping(value = "/login", method =RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	public ResponseEntity appLogin(@RequestBody User user) {
+		Optional<User> userChecked = userService.checkLogin(user);
+		if(userChecked.isPresent()) {
+			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			return ResponseEntity.ok(userChecked);
+		}
+		return ResponseEntity.badRequest().build();
+		
 	}
 	
 	@GetMapping("/logout")
