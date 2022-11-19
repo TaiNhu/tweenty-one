@@ -26,16 +26,15 @@ public class TypeVideo {
 	String name;
 	String image;
 	String description;
+	int count = 0;
 	@ManyToOne
 	@JoinColumn(name = "movie_id")
 	Movie movie;
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	Type type;
-	@JsonIgnore
 	@OneToMany(mappedBy = "typeVideo")
 	List<Episode> episodes;
-	@JsonIgnore
 	@OneToMany(mappedBy = "typeVideo")
 	List<VideoGenres> videoGenres;
 }

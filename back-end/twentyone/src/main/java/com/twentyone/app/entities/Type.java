@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -20,6 +22,7 @@ public class Type {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	String name;
+	@JsonIgnore
 	@OneToMany(mappedBy = "type")
 	List<TypeVideo> typeVideo;
 	

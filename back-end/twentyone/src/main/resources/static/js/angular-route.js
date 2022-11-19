@@ -2,7 +2,8 @@ const app = angular.module("app", ["ngRoute"])
 
 app.config(function($routeProvider) {
 	$routeProvider.when("/", {
-		templateUrl: "/components/home.html"
+		templateUrl: "/components/home.html",
+		controller: "homeCtrl"
 	})
 	.when("/categories", {
 		templateUrl: "/components/categories.html"

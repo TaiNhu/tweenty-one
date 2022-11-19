@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -22,6 +24,7 @@ public class Episode {
 	String name;
 	String link;
 	int episodeNumber;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "type_id")
 	TypeVideo typeVideo;

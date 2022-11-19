@@ -43,8 +43,8 @@ go
 
 create table video_genres(
 	id int identity(1, 1) primary key,
-	movie_id int references categories(id) on delete cascade on update cascade,
-	category_id int references type_videos(id) on delete cascade on update cascade
+	category_id int references categories(id)  on delete cascade on update cascade,
+	movie_id int references type_videos(id)  on delete cascade on update cascade
 )
 go
 
@@ -74,4 +74,6 @@ create table anime_list(
 	status varchar(30),
 	user_id varchar(50) references users(user_name) on delete cascade on update cascade,
 	movie_id int references type_videos(id)  on delete cascade on update cascade
-	)
+	);
+
+

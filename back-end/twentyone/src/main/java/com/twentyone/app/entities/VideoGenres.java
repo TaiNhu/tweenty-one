@@ -2,6 +2,8 @@ package com.twentyone.app.entities;
 
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +21,7 @@ public class VideoGenres {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "movie_id")
 	TypeVideo typeVideo;
