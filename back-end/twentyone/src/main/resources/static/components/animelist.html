@@ -62,13 +62,13 @@
                             <td>{{anime.status}}</td>
                             <td>{{anime.process}}</td>
                             <td>{{anime.note}}</td>
-                            <td><button class="btn" style="color: #bbb" data-bs-toggle="modal" data-bs-target="#editModal" ng-click="showEdit(anime)">edit</button></td>
+                            <td><button class="btn" style="color: #bbb" data-bs-toggle="modal" data-bs-target="#editModal" ng-click="showEdit(anime)" ng-if="authen">edit</button></td>
                           </tr>
                         </tbody>
                       </table>
                 </div>
             </div>
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" ng-if="authen">
 			  <div class="modal-dialog modal-dialog-centered">
 			    <div class="modal-content">
 			      <div class="modal-header">
