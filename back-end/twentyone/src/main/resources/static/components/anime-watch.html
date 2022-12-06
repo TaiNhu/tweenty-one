@@ -1,0 +1,89 @@
+<div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="#!/"><i class="fa fa-home"></i> Home</a>
+                        <a href="#!categories/0">Categories</a>
+                        <span>{{films[0].name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Anime Section Begin -->
+    <section class="anime-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="anime__video__player">
+                        <video id="player" playsinline controls data-poster="/img/{{films[0].image}}">
+                            <source src="/episodes/{{currentEpisode}}" type="video/mp4" />
+                            <!-- Captions are optional -->
+                            <track kind="captions" label="English captions" src="#" srclang="en" default />
+                        </video>
+                    </div>
+                     <div class="anime__details__episodes" ng-show="films.length > 1">
+                        <div class="section-title">
+                            <h5>Season</h5>
+                        </div>
+                        <a href="#!watchanime/{{film.id}}?episode={{film.episodes[0].id}}" ng-repeat="film in films" ng-show="$index > 0" style="background-color: green">{{film.typeName}}</a>
+                    </div>
+                    <div class="anime__details__episodes">
+                        <div class="section-title">
+                            <h5>List Name</h5>
+                        </div>
+                        <a href="#!watchanime/{{films[0].id}}?episode={{episode.id}}" ng-repeat="episode in films[0].episodes">Ep {{$index < 10 && '0'}}{{$index + 1}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+				<div class="anime__details__review">
+					<div class="section-title">
+						<h5>Reviews</h5>
+					</div>
+					<div class="anime__review__item"
+						ng-repeat="review in films[0].reviews">
+						<div class="anime__review__item__pic"  style="{{review.user.userName == user.userName && 'background-color: rgba(31, 32, 62, 1)'}}">
+							<a href="#!profile?user={{review.user.userName}}"><img src="{{review.user.image.includes('http') ? review.user.image : '/img/' + review.user.image}}" alt=""></a>
+						</div>
+						<div class="anime__review__item__text"  style="{{review.user.userName == user.userName && 'background-color: rgba(31, 32, 62, 1)'}}">
+							<h6>
+								{{review.user.userName == user.userName ? "You" : review.user.userName}} - <span>{{review.recommend && 'Recommend'}}</span>
+							</h6>
+							<p>{{review.content}}</p>
+						</div>
+					</div>
+					<div class="anime__review__item__text"
+						ng-show="films[0].reviews.length <= 0">
+						<h6>Không có đánh giá</h6>
+					</div>
+				</div>
+				<div class="anime__details__form">
+					<div class="section-title">
+						<h5 ng-show="!commentDisabled">Your Comment</h5>
+						<h5 ng-show="commentDisabled" style="color: green;">Commented <i class="fa fa-solid fa-check"></i></h5>
+					</div>
+					<form ng-show="!commentDisabled">
+						<textarea placeholder="Your Comment" ng-model="review.content"></textarea>
+						
+						<div class="form-check form-switch">
+						  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked ng-model="review.recommend" ng-init="review.recommend = true">
+						  <label class="form-check-label" for="flexSwitchCheckChecked" style="color: white;">Recommend</label>
+						</div>
+						<button ng-click="postComment()" type="submit"
+							style="opacity: {{user.userName? 1: 0.4}}"
+							title="{{user.userName || 'Login require'}}">
+							<i class="fa fa-location-arrow" ng-show="user.userName"></i><i
+								class="fa fa-regular fa-lock" ng-show="!user.userName"></i>
+							Review
+						</button>
+					</form>
+				</div>
+			</div>
+            </div>
+        </div>
+    </section>

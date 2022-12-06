@@ -1,0 +1,229 @@
+<!-- Hero Section Begin -->
+<section class="hero">
+	<div class="container">
+		<div class="hero__slider owl-carousel">
+			<div class="hero__items set-bg" data-setbg="img/hero/hero-1.jpg">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="hero__text">
+							<div class="label">Adventure</div>
+							<h2>Fate / Stay Night: Unlimited Blade Works</h2>
+							<p>After 30 days of travel across the world...</p>
+							<a href="#"><span>Watch Now</span> <i
+								class="fa fa-angle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hero__items set-bg" data-setbg="img/hero/hero-1.jpg">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="hero__text">
+							<div class="label">Adventure</div>
+							<h2>Fate / Stay Night: Unlimited Blade Works</h2>
+							<p>After 30 days of travel across the world...</p>
+							<a href="#"><span>Watch Now</span> <i
+								class="fa fa-angle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hero__items set-bg" data-setbg="img/hero/hero-1.jpg">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="hero__text">
+							<div class="label">Adventure</div>
+							<h2>Fate / Stay Night: Unlimited Blade Works</h2>
+							<p>After 30 days of travel across the world...</p>
+							<a href="#"><span>Watch Now</span> <i
+								class="fa fa-angle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Product Section Begin -->
+<section class="product spad">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8">
+
+				<div class="popular__product">
+					<div class="row">
+						<div class="col-lg-8 col-md-8 col-sm-8">
+							<div class="section-title">
+								<h4>Popular Shows</h4>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="btn__all">
+								<a href="#!categories/0" class="primary-btn">View All <span
+									class="arrow_right"></span></a>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6"
+							ng-repeat="film in popularFilm">
+							<div class="product__item">
+								<div class="product__item__pic set-bg">
+									<img src="/img/{{film.image}}" />
+									<div class="ep">{{film.episodes.length}} /
+										{{film.episodes.length}}</div>
+									<div class="comment">
+										<i class="fa fa-comments"></i> {{film.reviews.length}}
+									</div>
+									<div class="view">
+										<i class="fa fa-eye"></i> {{film.count}}
+									</div>
+								</div>
+								<div class="product__item__text">
+									<ul>
+										<li>{{film.videoGenres[0].category.name}}</li>
+										<li>{{film.type.name}}</li>
+									</ul>
+									<h5>
+										<a href="#!animedetail/{{film.id}}">{{film.name}}</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="recent__product">
+					<div class="row">
+						<div class="col-lg-8 col-md-8 col-sm-8">
+							<div class="section-title">
+								<h4>Recently Added Shows</h4>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="btn__all">
+								<a href="#!categories/0" class="primary-btn">View All <span
+									class="arrow_right"></span></a>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6"
+							ng-repeat="film in lastestFilm">
+							<div class="product__item">
+								<div class="product__item__pic set-bg">
+									<img src="/img/{{film.image}}" />
+									<div class="ep">{{film.episodes.length}} /
+										{{film.episodes.length}}</div>
+									<div class="comment">
+										<i class="fa fa-comments"></i> {{film.reviews.length}}
+									</div>
+									<div class="view">
+										<i class="fa fa-eye"></i> {{film.count}}
+									</div>
+								</div>
+								<div class="product__item__text">
+									<ul>
+										<li>{{film.videoGenres[0].category.name}}</li>
+										<li>{{film.type.name}}</li>
+									</ul>
+									<h5>
+										<a href="#!animedetail/{{film.id}}">{{film.name}}</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="live__product">
+					<div class="row">
+						<div class="col-lg-8 col-md-8 col-sm-8">
+							<div class="section-title">
+								<h4>Live Action</h4>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="btn__all">
+								<a href="#!categories/0" class="primary-btn">View All <span
+									class="arrow_right"></span></a>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6"
+							ng-repeat="film in liveActionFilm">
+							<div class="product__item">
+								<div class="product__item__pic set-bg">
+									<img src="/img/{{film.image}}" />
+									<div class="ep">{{film.episodes.length}} /
+										{{film.episodes.length}}</div>
+									<div class="comment">
+										<i class="fa fa-comments"></i> {{film.reviews.length}}
+									</div>
+									<div class="view">
+										<i class="fa fa-eye"></i> {{film.count}}
+									</div>
+								</div>
+								<div class="product__item__text">
+									<ul>
+										<li>{{film.videoGenres[0].category.name}}</li>
+										<li>{{film.type.name}}</li>
+									</ul>
+									<h5>
+										<a href="#!animedetail/{{film.id}}">{{film.name}}</a>
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-8">
+				<div class="product__sidebar">
+					<div class="product__sidebar__view">
+						<div class="section-title">
+							<h5>Top Views</h5>
+						</div>
+						<div class="filter__gallery">
+							<div class="product__sidebar__view__item set-bg mix day years"
+								data-setbg="img/sidebar/tv-1.jpg" ng-repeat="film in popularFilm">
+								<img src="/img/{{film.image}}" height="100%"/>
+								<div class="ep">{{film.episodes.length}} /
+										{{film.episodes.length}}</div>
+								<div class="view">
+									<i class="fa fa-eye"></i> {{film.count}}
+								</div>
+								<h5>
+									<a href="#!animedetail/{{film.id}}">{{film.name}}</a>
+								</h5>
+							</div>
+							
+							
+						</div>
+					</div>
+					<div class="product__sidebar__comment">
+						<div class="section-title">
+							<h5>New Comment</h5>
+						</div>
+						<div class="product__sidebar__comment__item" ng-repeat="film in lastestComment">
+							<div class="product__sidebar__comment__item__pic">
+								<img src="/img/{{film.image}}" alt="" height="200px">
+							</div>
+							<div class="product__sidebar__comment__item__text">
+								<ul>
+									<li>{{film.videoGenres[0].category.name}}</li>
+									<li>{{film.type.name}}</li>
+								</ul>
+								<h5>
+									<a href="#!animedetail/{{film.id}}">{{film.name}}</a>
+								</h5>
+								<span><i class="fa fa-eye"></i> {{film.count}} Viewes</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

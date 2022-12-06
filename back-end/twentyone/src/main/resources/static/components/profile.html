@@ -1,0 +1,62 @@
+
+    <div id="profile">
+        <!-- profile -->
+        <!-- <header class="header">
+            <div class="header__text">
+                
+            </div>
+        </header> -->
+
+        <main>
+            <!-- content page -->
+            <div class="content__left">
+                <div class="header__logo">
+                    <a href="./index.html">
+                        <img src="/img/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="user__avatar">
+                	<label style="overflow: hidden; margin: 0; width: 100%; height: 100%">
+                    	<img src="{{avatar}}" alt="" width="100%" height="100%"> 
+                    	<input type="file" ng-model="image" onchange="angular.element(this).scope().changeImage()" ng-if="authen" style="position: absolute; z-index: -1000"/>
+                	</label>
+                </div>
+                <div class="user__name" style="text-overflow: ellipsis; width: 300px; overflow: hidden; margin: auto;">
+                    {{user.userName}}
+                </div>
+
+                <a class="btn__connect" href="#!animelist?user={{user.userName}}">Anime List</a>
+                
+            </div>
+            <div class="content__right">
+                <div class="content__bottom">
+                    <h3 style="color: white;">Statistic</h3>
+
+                    <div class="row" style="margin-top: 50px;">
+                        
+                        <div class="col-lg-12" style="border-top: 1px solid white; padding: 5px;">
+                            <h5 style="color: white">TOP 5 lastest anime</h5>
+                            <p ng-show="animeList.length <= 0" style="color: #ddd">Không có lịch sử nào</p>
+                            <ul class="row" style="display: flex">
+                                <li class="last__update d-flex flex-row " ng-repeat="anime in animeList" style="height: 150px; flex: 0 0 50%; padding-block: 5px;">
+                                    <div style="height: 100%; border-radius: 10px; overflow: hidden;">
+                                        <img src="/img/{{anime.typeVideo.image}}" alt="" height="100%" style="object-fit: cover;">
+                                    </div>
+                                    <div class="update2 col-lg-9">
+                                        <a style="color: white;" href="#!animedetail/{{anime.typeVideo.id}}">{{anime.typeVideo.name}}</a>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: {{anime.score}}0%" aria-valuenow="{{anime.score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                          </div>
+                                        <div>
+                                            <p style="color: white; text-align: left;">complete: {{anime.process}} / {{anime.typeVideo.episodes.length}} - Score: {{anime.score}}</p>
+                                            
+                                        </div>
+                                    </div>
+                                </li>                                                            
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
