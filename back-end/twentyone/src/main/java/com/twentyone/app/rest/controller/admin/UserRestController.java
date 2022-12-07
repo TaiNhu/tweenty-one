@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,25 @@ public class UserRestController {
 	public ResponseEntity get() {
 		List<User> users = userService.findAll();
 		return new ResponseEntity("Thành công", HttpStatus.OK).ok(users);
+	}
+	
+	@PutMapping("/users/{id}")
+	public ResponseEntity update(@PathVariable("id") String id, @RequestBody User userUpdate) {
+		Optional<User> user = userService.findById(id);
+		if(user.isPresent()) {
+			user.get().setEmail(userUpdate.getEmail());
+			user.get().setImage(userUpdate.getImage());
+			user.get().setPassword(userUpdate.getPassword());
+			try {
+				userService.update(user.get());
+				ResponseEntity.ok(user.get());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return new ResponseEntity("Lỗi không xác định", HttpStatus.EXPECTATION_FAILED);
+			}
+		}
+		return ResponseEntity.badRequest().build();
 	}
 	
 	@PostMapping("/users")
