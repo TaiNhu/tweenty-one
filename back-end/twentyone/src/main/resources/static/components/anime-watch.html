@@ -6,6 +6,7 @@
                         <a href="#!/"><i class="fa fa-home"></i> Home</a>
                         <a href="#!categories/0">Categories</a>
                         <span>{{films[0].name}}</span>
+                        <span>{{currentEpisode}}</span>
                     </div>
                 </div>
             </div>
@@ -21,6 +22,7 @@
                     <div class="anime__video__player">
                         <video id="player" playsinline controls data-poster="/img/{{films[0].image}}">
                             <source src="/episodes/{{currentEpisode}}" type="video/mp4" />
+                            <source src="{{currentEpisode.link}}" type="video/mp4" />
                             <!-- Captions are optional -->
                             <track kind="captions" label="English captions" src="#" srclang="en" default />
                         </video>

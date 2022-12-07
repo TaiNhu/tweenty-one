@@ -2,6 +2,8 @@ package com.twentyone.app.rest.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.catalina.manager.util.SessionUtils;
@@ -31,6 +33,7 @@ public class FileHandlerRestController {
 	@RequestMapping(value = "/saveimage/avatar", method = RequestMethod.POST)
 	public ResponseEntity saveProfileImage(@RequestParam("image") MultipartFile file) {
 		Optional<User> user = userService.findById(SecurityContextHolder.getContext().getAuthentication().getName());
+		System.out.println(SecurityContextHolder.getContext().getAuthentication());
 		if (user.isPresent()) {
 			String fileName = com.twentyone.app.utils.SessionUtils.saveProfileImage(file);
 			user.get().setImage(fileName);
@@ -43,6 +46,14 @@ public class FileHandlerRestController {
 			}
 		}
 		return new ResponseEntity("Lỗi", HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value = "/saveimage", method = RequestMethod.POST)
+	public ResponseEntity saveImage(@RequestParam("image") MultipartFile file) {
+		String fileName = com.twentyone.app.utils.SessionUtils.saveProfileImage(file);
+		Map response = new HashMap();
+		response.put("fileName", fileName);
+		return ResponseEntity.ok(response);
 	}
 
 }

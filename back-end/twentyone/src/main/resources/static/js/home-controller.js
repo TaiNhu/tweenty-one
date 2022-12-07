@@ -96,7 +96,12 @@ app.controller("loginCtrl", function($scope, $http, $window) {
 		}).then(data => {
 			$scope.error = false
 			localStorage.setItem("user", JSON.stringify(data.data))
-			$window.location.href = '/index.html';
+			if(data.data.role == "USER") {
+				$window.location.href = '/index.html';
+			} else if (data.data.role = "ADMIN") {
+				$window.location.href = '/admin/tables.html/#!/';
+			}
+
 		},
 			error => {
 				$scope.error = true
@@ -313,7 +318,8 @@ app.controller("ctrl", function($scope, $http, $window) {
 		}
 	},
 		error => {
-			console.log(error)
+			$scope.user = {}
+			localStorage.removeItem("user");
 		}
 	)
 	$scope.logout = function() {

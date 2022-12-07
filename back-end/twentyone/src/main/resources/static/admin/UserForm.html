@@ -17,30 +17,29 @@
           <form>
             <div class="mb-3">
               <label class="form-label" for="exampleInputPassword1">User Name</label>
-              <input class="form-control" id="exampleInputPassword1" type="text">
+              <input class="form-control" id="exampleInputPassword1" type="text" ng-model="u.userName">
             </div>
             <div class="mb-3">
               <label class="form-label" for="exampleInputPassword1">Password</label>
-              <input class="form-control" id="exampleInputPassword1" type="password">
+              <input class="form-control" id="exampleInputPassword1" type="password" ng-model="u.password">
             </div>
             <div class="mb-3">
               <label class="form-label" for="exampleInputEmail1">Email address</label>
-              <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp">
+              <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" ng-model="u.email">
               <div class="form-text" id="emailHelp">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
               <label class="form-label" for="exampleInputPassword1">IMG</label>
-              <input class="form-control" id="exampleInputPassword1" type="file">
+              <input class="form-control" type="file" id="image">
             </div>
             <div class="mb-3">
               <label class="form-label" for="exampleInputPassword1">Role</label>
-              <input class="form-control" id="exampleInputPassword1" type="text">
+              <input class="form-control" id="exampleInputPassword1" type="text" ng-model="u.role">
             </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
-            <button class="btn btn-primary" type="submit">Submit</button>
-            <button class="btn btn-primary" type="submit">Submit</button>
-            <button type="button" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#hi"
-              aria-expanded="true" aria-controls="hi">Back</button>
+            <button class="btn btn-primary" type="submit" ng-click="submit()">Submit</button>
+            <button class="btn btn-primary" type="submit" ng-click="updateUser()">Update</button>
+            <button class="btn btn-danger" type="submit" ng-click="deleteUser()">Delete</button>
+            <button type="button" class="btn btn-danger" ng-click="reset()">Back</button>
           </form>
         </div>
       </div>

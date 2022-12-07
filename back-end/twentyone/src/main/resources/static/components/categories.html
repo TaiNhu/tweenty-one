@@ -53,6 +53,7 @@
 						</div>
 					</div>
 					<div class="row">
+						<h1 ng-if="films.length <= 0" style="color: white;">Không tìm thấy film</h1>
 						<div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="film in films">
 							<div class="product__item">
 								<div class="product__item__pic set-bg">

@@ -1,6 +1,8 @@
 package com.twentyone.app.rest.controller.admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,9 @@ public class UserRestController {
 		Optional<User> user = userService.findById(id);
 		if(user.isPresent()) {
 			user.get().setEmail(userUpdate.getEmail());
-			user.get().setImage(userUpdate.getImage());
+			if(user.get().getImage() != null) {
+				user.get().setImage(userUpdate.getImage());
+			}
 			user.get().setPassword(userUpdate.getPassword());
 			try {
 				userService.update(user.get());
@@ -69,7 +73,9 @@ public class UserRestController {
 			Optional<User> user = userService.findById(id);
 			if(user.isPresent()) {
 				userService.delete(user.get());
-				return new ResponseEntity("Thành công", HttpStatus.OK);
+				Map response = new HashMap();
+				response.put("message", "Thanh Cong");
+				return ResponseEntity.ok(response);
 			}
 			return new ResponseEntity("Sai trường", HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {

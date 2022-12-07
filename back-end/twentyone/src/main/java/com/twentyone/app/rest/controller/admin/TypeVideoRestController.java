@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twentyone.app.entities.Movie;
 import com.twentyone.app.entities.TypeVideo;
 import com.twentyone.app.entities.VideoGenres;
+import com.twentyone.app.service.CategoriesService;
 import com.twentyone.app.service.MovieService;
 import com.twentyone.app.service.TypeService;
 import com.twentyone.app.service.TypeVideoService;
@@ -43,6 +44,9 @@ public class TypeVideoRestController {
 	
 	@Autowired
 	VideoGenresService videoGenresService;
+	
+	@Autowired
+	CategoriesService categoriesService;
 
 	@GetMapping("/typevideos")
 	public ResponseEntity get() {
@@ -53,18 +57,22 @@ public class TypeVideoRestController {
 	@PostMapping("/typevideos")
 	public ResponseEntity insert(@RequestBody JsonNode typeVideoJSON) {
 		try {
-			Optional<Movie> movie = movieService.findById(typeVideoJSON.get("movie").asInt());
-			Optional<Type> type = typeService.findById(typeVideoJSON.get("type").asInt());
+			Optional<Movie> movie = movieService.findById(typeVideoJSON.get("movie").get("id").asInt());
+			Optional<Type> type = typeService.findById(typeVideoJSON.get("type").get("id").asInt());
+			System.out.println(typeVideoJSON);
 			if(movie.isPresent()) {
-				TypeVideo typeVideo = new TypeVideo();
+				TypeVideo typeVideo = typeVideoService.findById(typeVideoJSON.get("id").asInt()).orElse(new TypeVideo());
+				typeVideo.setName(typeVideoJSON.get("name").asText());
 				typeVideo.setCount(typeVideoJSON.get("count").asInt());
 				typeVideo.setDescription(typeVideoJSON.get("description").asText());
-				typeVideo.setImage(typeVideoJSON.get("image").asText());
+				if(typeVideoJSON.get("image") != null) {
+					typeVideo.setImage(typeVideoJSON.get("image").asText());
+				}
 				typeVideo.setMovie(movie.get());
 				typeVideo.setTypeName(typeVideoJSON.get("typeName").asText());
 				typeVideo.setType(type.get());
-				this.insertVideoGenres(typeVideoJSON.get("videoGenres"));
-//				typeVideoService.insert(typeVideo);
+				typeVideoService.insert(typeVideo);
+				this.insertVideoGenres(typeVideoJSON, typeVideo);
 				return new ResponseEntity("Insert thành công", HttpStatus.OK).ok(typeVideo);
 			}
 		} catch (Exception e) {
@@ -75,10 +83,14 @@ public class TypeVideoRestController {
 		return ResponseEntity.badRequest().build();
 	}
 	
-	private void insertVideoGenres(JsonNode videoGenres) throws Exception {
+	private void insertVideoGenres(JsonNode videoGenres, TypeVideo typeVideo) throws Exception {
+		System.out.println(typeVideo.getId());
+		videoGenresService.removeAll(typeVideo.getId());
 		ObjectMapper mapper = new ObjectMapper();
-		for(JsonNode videoGenre : videoGenres) {
-			VideoGenres vG = mapper.convertValue(videoGenre, VideoGenres.class);
+		for(JsonNode videoGenre : videoGenres.get("categories")) {
+			VideoGenres vG = new VideoGenres();
+			vG.setCategory(categoriesService.findById(videoGenre.asInt()).get());
+			vG.setTypeVideo(typeVideo);
 			videoGenresService.insert(vG);
 		}
 	}

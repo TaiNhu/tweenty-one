@@ -41,7 +41,7 @@
                             <td style=" width: 10px !important"><img src="{{user.image.includes('http') ? user.image : '/img/' + user.image}}" alt="" width="100px"></td>
                             <td>{{ user.email}}</td>
                             <td>{{ user.role}}</td>
-                            <td><a type="button" class="btn btn-danger" href="#!formuser"><svg
+                            <td><a type="button" class="btn btn-danger" href="#!formuser?user={{user.userName}}"><svg
                                   xmlns="http://www.w3.org/2000/svg" width="40" height="20" fill="currentColor"
                                   class="bi bi-file-person" viewBox="0 0 16 16">
                                   <path

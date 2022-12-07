@@ -9,17 +9,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="all,follow">
 	<!-- Choices.js-->
-	<link rel="stylesheet" href="vendor/choices.js/public/assets/styles/choices.min.css">
+	<link rel="stylesheet" href="/admin/vendor/choices.js/public/assets/styles/choices.min.css">
 	<!-- Google fonts - Muli-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
 	<!-- theme stylesheet-->
-	<link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+	<link rel="stylesheet" href="/admin/css/style.default.css" id="theme-stylesheet">
 	<!-- Custom stylesheet - for your changes-->
-	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="/admin/css/custom.css">
+	<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="/admin/img/favicon.ico">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<!-- Tweaks for older IEs-->
 	<!--[if lt IE 9]>
@@ -73,59 +74,12 @@
 								<use xlink:href="#find-1"> </use>
 							</svg></a></li>
 					<!-- Messages dropdown -->
-					<li class="list-inline-item dropdown px-lg-2"><a class="nav-link text-reset px-1 px-lg-0"
-							id="navbarDropdownMenuLink1" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-							<svg class="svg-icon svg-icon-xs svg-icon-heavy">
-								<use xlink:href="#envelope-1"> </use>
-							</svg><span class="badge bg-dash-color-1">5</span></a>
-						<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
-							aria-labelledby="navbarDropdownMenuLink1">
-							<li><a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="position-relative"><img class="avatar avatar-md" src="img/avatar-3.jpg"
-											alt="Nadia Halsey">
-										<div class="availability-status bg-success"></div>
-									</div>
-									<div class="ms-3"> <strong class="d-block">Nadia Halsey</strong><span
-											class="d-block text-xs">lorem
-											ipsum dolor sit amit</span><small class="d-block">9:30am</small></div>
-								</a></li>
-							<li><a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="position-relative"><img class="avatar avatar-md" src="img/avatar-2.jpg"
-											alt="Peter Ramsy">
-										<div class="availability-status bg-warning"></div>
-									</div>
-									<div class="ms-3"> <strong class="d-block">Nadia Halsey</strong><span
-											class="d-block text-xs">lorem
-											ipsum dolor sit amit</span><small class="d-block">9:30am</small></div>
-								</a></li>
-							<li><a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="position-relative"><img class="avatar avatar-md" src="img/avatar-1.jpg"
-											alt="Sam Kaheil">
-										<div class="availability-status bg-danger"></div>
-									</div>
-									<div class="ms-3"> <strong class="d-block">Nadia Halsey</strong><span
-											class="d-block text-xs">lorem
-											ipsum dolor sit amit</span><small class="d-block">9:30am</small></div>
-								</a></li>
-							<li><a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="position-relative"><img class="avatar avatar-md" src="img/avatar-5.jpg"
-											alt="Sara Wood">
-										<div class="availability-status bg-secondary"></div>
-									</div>
-									<div class="ms-3"> <strong class="d-block">Nadia Halsey</strong><span
-											class="d-block text-xs">lorem
-											ipsum dolor sit amit</span><small class="d-block">9:30am</small></div>
-								</a></li>
-							<li><a class="dropdown-item text-center message" href="#"> <strong>See All Messages <i
-											class="fas fa-angle-right ms-1"></i></strong></a></li>
-						</ul>
-					</li>
+					
 					<!-- Tasks dropdown                   -->
 					<!-- Mega menu-->
 					<!-- Languages dropdown    -->
 					<li class="list-inline-item logout px-lg-2"> <a class="nav-link text-sm text-reset px-1 px-lg-0"
-							id="logout" href="login.html"> <span class="d-none d-sm-inline-block">Logout </span>
+							id="logout" href="/logout"> <span class="d-none d-sm-inline-block">Logout </span>
 							<svg class="svg-icon svg-icon-xs svg-icon-heavy">
 								<use xlink:href="#disable-1"> </use>
 							</svg></a></li>
@@ -244,12 +198,12 @@
 		</div>
 	</div>
 	<!-- JavaScript files-->
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="vendor/just-validate/js/just-validate.min.js"></script>
-	<script src="vendor/chart.js/Chart.min.js"></script>
-	<script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+	<script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/admin/vendor/just-validate/js/just-validate.min.js"></script>
+	<script src="/admin/vendor/chart.js/Chart.min.js"></script>
+	<script src="/admin/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
 	<!-- Main File-->
-	<script src="js/front.js"></script>
+	<script src="/admin/js/front.js"></script>
 	<script>
 		// ------------------------------------------------------- //
 		//   Inject SVG Sprite - 
@@ -272,46 +226,60 @@
 		app.config(function ($routeProvider) {
 			$routeProvider
 				.when("/", {
-					templateUrl: "Home.html",
+					templateUrl: "/admin/Home.html",
 					controller: "HomeController"
 				})
 				.when("/movies", {
-					templateUrl: "movies.html",
+					templateUrl: "/admin/movies.html",
 					controller: "moviesController"
 				})
 				.when("/typevideos", {
-					templateUrl: "TypeVideos.html",
+					templateUrl: "/admin/TypeVideos.html",
 					controller: "TypeVideosController"
 				})
 				.when("/user", {
-					templateUrl: "user.html",
+					templateUrl: "/admin/user.html",
 					controller: "userController"
 				})
 				.when("/formanime", {
-					templateUrl: "AnimeForm.html",
+					templateUrl: "/admin/AnimeForm.html",
 					controller: "AnimeFormController"
 				})
 				.when("/formuser", {
-					templateUrl: "UserForm.html",
+					templateUrl: "/admin/UserForm.html",
 					controller: "UserFormController"
 				})
 				.when("/formtypevideos", {
-					templateUrl: "TypeVideosForm.html",
+					templateUrl: "/admin/TypeVideosForm.html",
 					controller: "TypeVideosFormController"
 				})
 				.when("/formmovies", {
-					templateUrl: "MoviesForm.html",
+					templateUrl: "/admin/MoviesForm.html",
 					controller: "MoviesFormController"
 				})
 				.when("/formepisodes", {
-					templateUrl: "EpisodesForm.html",
+					templateUrl: "/admin/EpisodesForm.html",
 					controller: "EpisodesFormController"
 				})
 				.when("/episodes", {
-					templateUrl: "episodes.html",
+					templateUrl: "/admin/episodes.html",
 					controller: "episodesController"
 				});
 		});
+		
+		app.directive('onFinishRender', function ($timeout) {
+		  return {
+		    restrict: 'A',
+		    link: function (scope, element, attr) {
+		      if (scope.$last === true) {
+		        $timeout(function () {
+		          scope.$emit('ngRepeatFinished');
+		        });
+		      }
+		    }
+		  }
+		});
+		
 		app.controller("MainController", function ($scope, $http) {
 			$http.get("/login").then(function (data) {
 				$scope.user = data.data
@@ -324,6 +292,107 @@
 				$scope.users = data.data
 			})
 		})
+		app.controller("UserFormController", function ($scope, $http, $routeParams) {
+			$scope.u = {}
+			$scope.reset = () => {
+				$scope.u = {}
+			}
+			if($routeParams.user) {
+				$http.get("/user/"+$routeParams.user).then(data => {
+					$scope.u = data.data
+				})
+			}
+			$scope.submit = function() {
+				if($scope.u.userName) {
+					let formData = new FormData()
+					let image = document.querySelector("#image")
+					formData.append("image", image.files[0])
+					$http({
+						method: "POST",
+						url: "/saveimage",
+						headers: {
+							'Content-Type': undefined
+						},
+						data: formData
+					}).then(a => {
+						let data = $scope.u
+						data.image = a.data.fileName
+						$http({
+							method: "POST",
+							url: "/admin/users",
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							data: JSON.stringify(data)
+						}).then(data => {
+							$scope.reset()
+						}, error => console.log('loi'))
+					})
+				}
+				
+			}
+			
+			$scope.updateUser = function() {
+				if($scope.u.userName) {
+					let image = document.querySelector("#image")
+					if(image.files[0]) {
+						let formData = new FormData()
+						formData.append("image", image.files[0])
+						$http({
+							method: "POST",
+							url: "/saveimage",
+							headers: {
+								'Content-Type': undefined
+							},
+							data: formData
+						}).then(a => {
+							let data = $scope.u
+							data.image = a.data.fileName
+							$http({
+								method: "POST",
+								url: "/admin/users",
+								headers: {
+									'Content-Type': 'application/json'
+								},
+								data: JSON.stringify(data)
+							}).then(data => {
+								$scope.reset()
+							}, error => console.log('loi'))
+						})
+					} else if (!image.files[0]) { 
+						let data = $scope.u
+						$http({
+							method: "POST",
+							url: "/admin/users",
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							data: JSON.stringify(data)
+						}).then(data => {
+							$scope.reset()
+						}, error => console.log('loi'))
+					}
+					
+				}
+			}
+			
+			$scope.deleteUser = function() {
+				if($scope.u.userName) {
+					console.log($scope.u.userName)
+					$http({
+						method: "DELETE",
+						url: "/admin/users/"+$scope.u.userName
+					}).then(data => {
+						console.log(data)
+						$scope.reset()
+					})
+				}
+			} 
+			
+			
+			
+		})
+		
 		app.controller("moviesController", function ($scope, $http){
 			$scope.movies = []
 			$http.get("/admin/movies").then(function (data){
@@ -349,6 +418,104 @@
 				})
 			})
 		})
+		
+		app.controller("TypeVideosFormController", function ($scope, $http, $routeParams, $timeout) {
+			$scope.film = {}
+			$scope.types = []
+			$scope.error = null
+			if($routeParams.film) {
+				$http.get("/films/"+$routeParams.film).then(data => {
+					$scope.film = data.data[0]
+					$scope.film.categories = data.data[0].videoGenres.map(value => value.category.id)
+					
+					$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+						let categories = [...document.querySelectorAll("input.form-check-input")]
+						categories.forEach(value => {
+							if($scope.film.categories.some(v => v == value.value)) {
+								value.checked = true
+							}
+						})
+						$scope.filmCategories = (button) => {
+							if(!$scope.film.categories) {
+								$scope.film.categories = []
+							}
+							if(button.target.checked) {
+								$scope.film.categories.push(parseInt(button.target.value))
+							} else if (!button.target.checked) {
+								$scope.film.categories = $scope.film.categories.filter(value => value != parseInt(button.target.value))
+							}
+						}
+					});
+				})	
+			}
+			$http.get("/categories/").then(data => {
+				$scope.categories = data.data
+				
+			})
+			$http.get("/types").then(data => {
+				$scope.types = data.data
+			})
+			
+			$http.get("/admin/movies").then(data => {
+				$scope.movies = data.data
+			})
+			
+			$scope.insert = () => {
+				let formData = new FormData()
+				let image = document.querySelector("input[type='file']")
+				if(image.files[0]) {
+					formData.append("image", image.files[0])
+					$http({
+						method: "POST",
+						url: "/saveimage",
+						headers: {
+							'Content-Type': undefined
+						},
+						data: formData
+					}).then(data => {
+						document.querySelector("img.film").src = "/img/"+data.data.fileName
+						let info = {...$scope.film, image: data.data.fileName}
+						$http({
+							method: "POST",
+							url: "/admin/typevideos",
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							data: JSON.stringify(info)
+						}).then(data => {
+							console.log(data)
+							$scope.error = 'save thanh cong'
+						})
+					})
+				} else if (!image.files[0]) {
+					let info = {...$scope.film}
+					$http({
+						method: "POST",
+						url: "/admin/typevideos",
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						data: JSON.stringify(info)
+					}).then(data => {
+						console.log(data)
+						$scope.error = 'save thanh cong'
+					})
+				}
+			}
+			
+			$scope.delete = () => {
+				
+			}
+			
+			$scope.reset = () => {
+				$scope.film = {}
+			}
+			
+			
+			
+		})
+		
+		
 		app.controller("HomeController", function ($scope, $http) {
 			var ctx = document.querySelector('#doughnut').getContext('2d')
 
@@ -357,7 +524,7 @@
 				data: {
 					labels: ["Naruto", "Doremon", "Conan", "Shinosuke", "Onepiece", "Dragon Ball", "Hành động", "Siêu nhiên", "Hoạt hình", "Thiên nhiên", "Đánh nhau"],
 					datasets: [{
-						label: '# of Votes',
+						label: ' view: ',
 						data: [2, 7, 3, 5, 2, 3, 5, 3, 7, 4, 6],
 						backgroundColor: [
 							'#9999CC',
@@ -495,7 +662,7 @@
 				data: {
 					labels: ["Naruto", "Doremon", "Conan", "Shinosuke", "Onepiece", "Dragon Ball"],
 					datasets: [{
-						label: '# of Votes',
+						label: " view: ",
 						data: [10, 10, 5, 4, 2, 3],
 						backgroundColor: [
 							'#CC33FF',
@@ -517,12 +684,6 @@
 					}
 				}
 			});
-		})
-		app.controller("UserController", function ($scope, $http) {
-			$scope.user = {}
-			$http.get("http://192.168.1.177:8080/login").then(function (data) {
-				console.log(data)
-			})
 		})
 		// this is set to BootstrapTemple website as you cannot 
 		// inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)

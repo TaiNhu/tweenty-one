@@ -21,6 +21,7 @@ public class SessionUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("[ KHONG THEM MOI DUOC FILE ]");
 		return null;
 	}
 

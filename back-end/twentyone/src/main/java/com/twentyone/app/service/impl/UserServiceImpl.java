@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService{
 	        if (existUser.isEmpty()) {
 	        	System.out.println("User is not exist");
 	            User newUser = new User();
-	            newUser.setUserName(user.getAttributes().get("at_hash").toString());
+	            newUser.setUserName(user.getName());
 	            newUser.setEmail(email);
 	            newUser.setRole("USER");
 	            newUser.setImage(user.getAttributes().get("picture").toString());
