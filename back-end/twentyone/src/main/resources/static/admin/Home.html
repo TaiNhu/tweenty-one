@@ -1,0 +1,85 @@
+<section class="pt-0">
+    <div class="container-fluid">
+      <div class="row gy-4">
+
+        <!-- Biểu đồ cột -->
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body"><strong>Line Chart Example</strong>
+
+              <div class="column-chart" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div
+                  class="chart-1"
+                  style="background-color: #2d3035; flex:1 1 400px"
+                >
+                  <canvas
+                    id="bar"
+                    class="chart chart-bar"
+                    chart-data="{{data}}"
+                    chart-labels="labels"
+                  >
+                    chart-series="series"
+                  </canvas>
+                </div>
+          
+                <div
+                  class="chart-2"
+                  style="background-color: #2d3035; flex:1 1 400px"
+                >
+                  <canvas
+                    id="bar1"
+                    class="chart chart-bar"
+                    chart-data="{{data}}"
+                    chart-labels="labels"
+                  >
+                    chart-series="series"
+                  </canvas>
+                </div>
+                <div
+                  class="chart-3"
+                  style="background-color: #2d3035; flex:1 1 400px"
+                >
+                  <canvas
+                    id="bar2"
+                    class="chart chart-bar"
+                    chart-data="{{data}}"
+                    chart-labels="labels"
+                  >
+                    chart-series="series"
+                  </canvas>
+                </div>
+          
+                <div
+                  class="chart-4"
+                  style="background-color: #2d3035; flex:1 1 400px"
+                >
+                  <canvas
+                    id="bar3"
+                    class="chart chart-bar"
+                    chart-data="{{data}}"
+                    chart-labels="labels"
+                  >
+                    chart-series="series"
+                  </canvas>
+                </div>     
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Biểu đồ tròn -->
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body"><strong>Pie Chart Example</strong>
+              <canvas id="doughnut" class="chart chart-doughnut"
+                chart-data="data" chart-labels="labels" height="400">
+            </canvas> 
+            </div>
+          </div>
+        </div>
+        
+        
+        
+      </div>
+    </div>
+  </section>
