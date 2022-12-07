@@ -1,0 +1,11 @@
+/* your styles go here */
+
+/* .collapse {
+    height: 100%;
+    width: 100%;
+  } */
+  .collapsing {
+    height: 0;
+    overflow: hidden;
+  }
+  tr:hover {background-color: black;}
