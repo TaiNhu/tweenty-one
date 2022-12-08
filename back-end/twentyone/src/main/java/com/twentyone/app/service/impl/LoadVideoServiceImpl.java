@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+
+import com.twentyone.app.entities.Episode;
+
 import reactor.core.publisher.Mono;
 
 @Service
@@ -14,9 +17,11 @@ public class LoadVideoServiceImpl {
 	@Autowired
 	private ResourceLoader resourceLoader;
 	
-	public Mono<Resource> getVideo(String title) {
-		return Mono.fromSupplier(() -> resourceLoader.
-				getResource(String.format(FORMAT, title)));
+	public Mono<Resource> getVideo(Episode title) {
+		
+			return Mono.fromSupplier(() -> resourceLoader.
+					getResource(String.format(FORMAT, title.getLink())));
+		
 	}
 	
 }

@@ -343,9 +343,12 @@ app.controller("ctrl", function($scope, $http, $window) {
 app.controller("watchAnimeCtrl", function($scope, $http, $routeParams) {
 	$scope.user = JSON.parse(localStorage.getItem("user") || "{}")
 	$scope.films = []
+	$scope.link = null
 	$scope.commentDisabled = false
 	$scope.currentEpisode = $routeParams.episode
 	$http.get(`/films/${$routeParams.id}`).then(data => {
+		console.log(data)
+		
 		if (data.data.length <= 0) {
 			$location.path("")
 		} else {
@@ -363,6 +366,14 @@ app.controller("watchAnimeCtrl", function($scope, $http, $routeParams) {
 					data: JSON.stringify({ ...data.data[0], count: data.data[0].count + 1 })
 				})
 			}
+			$http.get("/episodes/"+ $scope.currentEpisode, {
+				headers: {
+					'Range': 0
+				}
+			}).then(function (data){
+				console.log(data)
+				$scope.link = data.data
+			})
 			$scope.commentDisabled = data.data[0].reviews.some(v => v.user.userName == $scope.user.userName)
 		}
 	},

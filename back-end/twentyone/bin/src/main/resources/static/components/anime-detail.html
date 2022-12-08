@@ -1,0 +1,151 @@
+<div class="breadcrumb-option">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="breadcrumb__links">
+					<a href="#!"><i class="fa fa-home"></i> Home</a> <a
+						href="#!categories/0">Categories</a> <span>Anime Detail</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Anime Section Begin -->
+<section class="anime-details spad">
+	<div class="container">
+		<div class="anime__details__content">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="anime__details__pic set-bg"
+						data-setbg="img/anime/details-pic.jpg">
+						<img src="/img/{{films[0].image}}" height="100%" />
+						<div class="comment">
+							<i class="fa fa-comments"></i> {{films[0].reviews.length}}
+						</div>
+						<div class="view">
+							<i class="fa fa-eye"></i> {{films[0].count}}
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<div class="anime__details__text">
+						<div class="anime__details__title">
+							<h3>{{films[0].name}}</h3>
+						</div>
+						<div class="anime__details__rating">
+							<span>{{films[0].reviews.length}} Votes</span>
+						</div>
+						<p>{{films[0].description}}</p>
+						<div class="anime__details__widget">
+							<div class="row">
+								<div class="col-lg-6 col-md-6">
+									<ul>
+										<li><span>Type:</span> {{films[0].type.name}}</li>
+										<li><span>Genre:</span> {{categories}}</li>
+									</ul>
+								</div>
+								<div class="col-lg-6 col-md-6">
+									<ul>
+										<li><span>Recommend:</span> {{recommend}} /
+											{{films[0].reviews.length}}</li>
+										<li><span>Quality:</span> HD</li>
+										<li><span>Views:</span> {{films[0].count}}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="anime__details__btn">
+							<button class="follow-btn" ng-show="!enabled" ng-click="followFilm(films[0])"
+								style="opacity: {{user.userName? 1: 0.4}}"
+								title="{{user.userName || 'Login require'}}"><i
+								class="fa fa-heart-o" ng-show="user.userName"></i><i
+								class="fa fa-regular fa-lock" ng-show="!user.userName"></i>
+								Follow</button> 
+							<button class="follow-btn" ng-show="enabled" ng-click="followFilm(films[0])"
+								style="opacity: {{user.userName? 1: 0.4}}; color: green; background-color: lightgreen !important;"
+								title="{{user.userName || 'Login require'}}"><i class="fa fa-solid fa-check"></i><i
+								class="fa fa-regular fa-lock" ng-show="!user.userName"></i>
+								Followed</button>
+							<a href="#!watchanime/{{films[0].id}}" class="watch-btn"><span>Watch Now</span>
+								<i class="fa fa-angle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				<div class="anime__details__review">
+					<div class="section-title">
+						<h5>Reviews</h5>
+					</div>
+					<div class="anime__review__item"
+						ng-repeat="review in films[0].reviews">
+						<div class="anime__review__item__pic"  style="{{review.user.userName == user.userName && 'background-color: rgba(31, 32, 62, 1)'}}">
+							<a href="#!profile?user={{review.user.userName}}"><img src="{{review.user.image.includes('http') ? review.user.image : '/img/' + review.user.image}}" alt=""></a>
+						</div>
+						<div class="anime__review__item__text"  style="display: flex; justify-content: space-between;{{review.user.userName == user.userName && 'background-color: rgba(31, 32, 62, 1)'}}">
+							<div>
+								<h6>
+									{{review.user.userName == user.userName ? "You" : review.user.userName}} - <span>{{review.recommend && 'Recommend'}}</span>
+								</h6>
+								<p>{{review.content}}</p>
+							</div>
+							<button class="btn" style="color: red;" ng-if="review.user.userName == user.userName" ng-click="deleteComment(review.id)">Xóa</button>
+						</div>
+					</div>
+					<div class="anime__review__item__text"
+						ng-show="films[0].reviews.length <= 0">
+						<h6>Không có đánh giá</h6>
+					</div>
+				</div>
+				<div class="anime__details__form">
+					<div class="section-title">
+						<h5 ng-show="!commentDisabled">Your Comment</h5>
+						<h5 ng-show="commentDisabled" style="color: green;">Commented <i class="fa fa-solid fa-check"></i></h5>
+					</div>
+					<form ng-show="!commentDisabled">
+						<textarea placeholder="Your Comment" ng-model="review.content"></textarea>
+						
+						<div class="form-check form-switch">
+						  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked ng-model="review.recommend" ng-init="review.recommend = true">
+						  <label class="form-check-label" for="flexSwitchCheckChecked" style="color: white;">Recommend</label>
+						</div>
+						<button ng-click="postComment()" type="submit"
+							style="opacity: {{user.userName? 1: 0.4}}"
+							title="{{user.userName || 'Login require'}}">
+							<i class="fa fa-location-arrow" ng-show="user.userName"></i><i
+								class="fa fa-regular fa-lock" ng-show="!user.userName"></i>
+							Review
+						</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<div class="anime__details__sidebar">
+					<div class="section-title">
+						<h5>Anime Related...</h5>
+					</div>
+					<div class="product__sidebar__comment__item" ng-repeat="film in films" ng-show="$index > 0">
+							<div class="product__sidebar__comment__item__pic">
+								<img src="/img/{{film.image}}" alt="" height="200px">
+							</div>
+							<div class="product__sidebar__comment__item__text">
+								<ul>
+									<li>{{film.videoGenres[0].category.name}}</li>
+									<li>{{film.type.name}}</li>
+									<li style="background-color: green">{{film.typeName}}</li>
+								</ul>
+								<h5>
+									<a href="#!animedetail/{{film.id}}">{{film.name}}</a>
+								</h5>
+								<span><i class="fa fa-eye"></i> {{film.count}} Viewes</span>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

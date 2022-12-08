@@ -61,7 +61,12 @@ public class TypeVideoRestController {
 			Optional<Type> type = typeService.findById(typeVideoJSON.get("type").get("id").asInt());
 			System.out.println(typeVideoJSON);
 			if(movie.isPresent()) {
-				TypeVideo typeVideo = typeVideoService.findById(typeVideoJSON.get("id").asInt()).orElse(new TypeVideo());
+				TypeVideo typeVideo = null;
+				if(typeVideoJSON.get("id") == null) {
+					typeVideo = new TypeVideo();
+				} else if (typeVideoJSON.get("id") != null) {
+					typeVideo = typeVideoService.findById(typeVideoJSON.get("id").asInt()).orElse(new TypeVideo());
+				}
 				typeVideo.setName(typeVideoJSON.get("name").asText());
 				typeVideo.setCount(typeVideoJSON.get("count").asInt());
 				typeVideo.setDescription(typeVideoJSON.get("description").asText());

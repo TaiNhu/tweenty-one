@@ -1,0 +1,31 @@
+.contact{
+      padding: 120px 0;
+}
+
+.container_title{
+      color: white;
+      font-size: 50px;
+      
+}
+
+.container_icon{
+      display: flex;
+      flex-direction: column;
+      margin-top: 50px; 
+}
+
+.icon{
+      margin: 10px 0;
+      display: flex;
+}
+
+.content{
+      color: white;
+      margin: 0 20px;
+      font-size: 20px;
+}
+
+.sticker{
+      font-size: 30px;
+}
+

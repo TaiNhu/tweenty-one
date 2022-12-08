@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twentyone.app.entities.Episode;
 import com.twentyone.app.entities.TypeVideo;
 import com.twentyone.app.service.EpisodeService;
+import com.twentyone.app.service.TypeVideoService;
 
 @RestController
 @RequestMapping("/admin")
@@ -28,24 +29,51 @@ public class EpisodeRestController {
 	
 	@Autowired
 	EpisodeService episodeService;
+	@Autowired
+    TypeVideoService typeVideoService;
 
 	@GetMapping("/episodes")
 	public ResponseEntity get() {
 		List<Episode> episodes = episodeService.findAll();
 		return new ResponseEntity("Thành công", HttpStatus.OK).ok(episodes);
 	}
+	@GetMapping("/episodes/{id}")
+	public ResponseEntity getOne(@PathVariable("id") int id) {
+		Optional<Episode> episodes = episodeService.findById(id);
+		return ResponseEntity.ok(episodes);
+	}
 	
 	@PostMapping("/episodes")
-	public ResponseEntity insert(@RequestBody Episode episode) {
-		try {
-			episodeService.insert(episode);
-			return new ResponseEntity("Thành công", HttpStatus.OK).ok(episode);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new ResponseEntity("Lỗi không xác định", HttpStatus.EXPECTATION_FAILED);
-		}
-	}
+	public ResponseEntity insert(@RequestBody JsonNode episodeJSON) {
+        Optional<TypeVideo> typeVideo = typeVideoService.findById(episodeJSON.get("typeVideo").asInt());
+        if(typeVideo.isPresent()) {
+            try {
+                Episode episode = new Episode();
+                if(episodeJSON.get("id") != null) {
+                	episode.setId(episodeJSON.get("id").asInt());
+                }
+                if(episodeJSON.get("episodeNumber") != null) {
+                    episode.setEpisodeNumber(episodeJSON.get("episodeNumber").asInt());
+                }
+                if (episodeJSON.get("link") != null) {
+                    episode.setLink(episodeJSON.get("link").asText());
+                }
+                if(episodeJSON.get("name") != null) {
+                    episode.setName(episodeJSON.get("name").asText());
+                }
+                episode.setTypeVideo(typeVideo.get());
+                episodeService.insert(episode);
+                return new ResponseEntity("Thành công", HttpStatus.OK).ok(episode);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return new ResponseEntity("Lỗi không xác định", HttpStatus.EXPECTATION_FAILED);
+            }
+        }
+        return ResponseEntity.badRequest().build();
+
+    }
+
 	
 	@PutMapping("/episodes/{id}")
 	public ResponseEntity update(@PathVariable("id") int id, @RequestBody JsonNode episodeUpdate) {

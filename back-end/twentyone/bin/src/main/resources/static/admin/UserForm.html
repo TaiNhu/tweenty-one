@@ -1,0 +1,47 @@
+<div class="container-fluid py-2">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0 py-3 px-0">
+      <li class="breadcrumb-item"><a href="#!/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">User Form</li>
+    </ol>
+  </nav>
+</div>
+<div class="accordion-body">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="h4 mb-0">User Form</h3>
+        </div>
+        <div class="card-body pt-0">
+          <p class="text-sm">Lorem ipsum dolor sit amet consectetur.</p>
+          <form>
+            <div class="mb-3">
+              <label class="form-label" for="exampleInputPassword1">User Name</label>
+              <input class="form-control" id="exampleInputPassword1" type="text" ng-model="u.userName">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="exampleInputPassword1">Password</label>
+              <input class="form-control" id="exampleInputPassword1" type="password" ng-model="u.password">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="exampleInputEmail1">Email address</label>
+              <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" ng-model="u.email">
+              <div class="form-text" id="emailHelp">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="exampleInputPassword1">IMG</label>
+              <input class="form-control" type="file" id="image">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="exampleInputPassword1">Role</label>
+              <input class="form-control" id="exampleInputPassword1" type="text" ng-model="u.role">
+            </div>
+            <button class="btn btn-primary" type="submit" ng-click="submit()">Submit</button>
+            <button class="btn btn-primary" type="submit" ng-click="updateUser()">Update</button>
+            <button class="btn btn-danger" type="submit" ng-click="deleteUser()">Delete</button>
+            <button type="button" class="btn btn-danger" ng-click="reset()">Back</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

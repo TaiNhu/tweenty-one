@@ -33,11 +33,16 @@ public class EpisodeClientRestController {
 	LoadVideoServiceImpl stream;
 	
 	@GetMapping(value = "/{id}", produces = "video/mp4")
-	public Mono<Resource> get(@PathVariable("id") int id, @RequestHeader("Range") String range) {
+	public Object get(@PathVariable("id") int id, @RequestHeader("Range") String range) {
 		Optional<Episode> ep = episodeService.findById(id);
 		if(ep.isPresent()) {
-			return stream.getVideo(ep.get().getLink());
+			if(!ep.get().getLink().contains("https")) {
+				return (Mono<Resource>)stream.getVideo(ep.get());
+			}
+			System.out.println(ep.get().getLink());
+			return ep.get().getLink();
 		}
 		return null;
 	}
+	
 }

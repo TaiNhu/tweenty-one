@@ -16,16 +16,17 @@
         <p class="text-sm">{{error}}</p>
         <form>
           <div class="row">
-            <label class="col-sm-3 form-label">IMG<br><img src="/img/{{film.image}}" width="100%" class="film"/><input type="file" style="display: none;"></label>
+            <label class="col-sm-3 form-label">IMG<br><img src="/img/{{film.image}}" width="100%" class="film"/>
+            <input type="file" style="display: none;"></label>
             <div class="col-sm-9">
               <div class="input-material-group mb-3">
+                <label class="form-label" for="register-email">Name </label>
                 <input class="input-material" id="register-email" type="text" name="registerEmail" required ng-model="film.name">
-                <label class="label-material" for="register-email">Name </label>
               </div>
               <div class="input-material-group mb-3">
+                <label class="form-label" for="register-password">Description </label>
                 <input class="input-material" id="register-password" type="text" name="registerPassword"
                   required ng-model="film.description">
-                <label class="label-material" for="register-password">Description </label>
               </div>
               <div class="mb-3">
                 <label class="form-label" for="exampleInputPassword1">Movies ID</label>
@@ -40,21 +41,21 @@
                 </select>
               </div>
               <div class="input-material-group mb-3">
+                <label class="form-label" for="register-password">Count </label>
                 <input class="input-material" id="register-password" type="number" name="registerPassword"
                   required ng-model="film.count">
-                <label class="label-material" for="register-password">Count </label>
               </div>
               <div class="input-material-group mb-3">
+                <label class="form-label" for="register-password">Type Name </label>
                 <input class="input-material" id="register-password" type="text" name="registerPassword"
                   required ng-model="film.typeName">
-                <label class="label-material" for="register-password">Type Name </label>
               </div>
             </div>
           </div>
           <div class="row">
             <label class="col-sm-3 form-label">Checkboxes &amp; radios <br></label>
             <div class="col-sm-9">
-              <div class="form-check" ng-repeat="category in categories" on-finish-render="ngRepeatFinished" >
+              <div class="form-check" ng-repeat="category in categories" on-finish-render="ngRepeatFinished">
                 <input class="form-check-input" type="checkbox" value="{{category.id}}" id="{{category.name}}" name="categories" ng-click="filmCategories($event, category)"/>
                 <label class="form-check-label" for="{{category.name}}">{{category.name}}</label>
               </div>

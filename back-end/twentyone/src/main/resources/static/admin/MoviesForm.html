@@ -16,14 +16,10 @@
         <p class="text-sm">Lorem ipsum dolor sit amet consectetur.</p>
         <form>
           <div class="mb-3">
-            <label class="form-label" for="exampleInputEmail1">ID</label>
-            <input class="form-control" id="exampleInputEmail1" type="number" aria-describedby="emailHelp">
-          </div>
-          <div class="mb-3">
             <label class="form-label" for="exampleInputPassword1">Name</label>
-            <input class="form-control" id="exampleInputPassword1" type="text">
+            <input class="form-control" id="exampleInputPassword1" type="text" ng-model="movie.name">
           </div>
-          <button class="btn btn-primary" type="submit">Submit</button>
+          <button class="btn btn-primary" type="submit" ng-click="submit1()">Submit</button>
         </form>
       </div>
     </div>

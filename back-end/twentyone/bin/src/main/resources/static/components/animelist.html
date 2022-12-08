@@ -1,0 +1,120 @@
+
+    <div id="profile" style="height: fit-content;">
+
+        <main>
+            
+            <div class="content" style="width: 100%">
+                <div class="content__header" style="width: 100%; margin: 0">
+                    <ul class="content__menu" style="list-style-type: none; display: flex; margin: 0; padding: 0; gap: 0; flex-grow: 1;">
+                        <!-- menu -->
+                        <li class="link">
+                            <button style="border: none; background-color: transparent; color: #bbb" ng-click="filterAnimeList()">All Anime</button>
+                        </li>
+                        <li class="link">
+                            <button style="border: none; background-color: transparent; color: #bbb" ng-click="filterAnimeList('watching')">Currently Watching</button>
+                        </li>
+                        <li class="link">
+                            <button style="border: none; background-color: transparent; color: #bbb" ng-click="filterAnimeList('completed')">Completed</button>
+                        </li>
+                        <li class="link">
+                            <button style="border: none; background-color: transparent; color: #bbb" ng-click="filterAnimeList('onhold')">On Hold</button>
+                        </li>
+                        <li class="link">
+                            <button style="border: none; background-color: transparent; color: #bbb" ng-click='filterAnimeList("dropped")'>Dropped</button>
+                        </li>
+                        <li class="link">
+                            <button style="border: none; background-color: transparent; color: #bbb" ng-click="filterAnimeList('plantowatch')">Plan to Watch</button>
+                        </li>
+                        <form class="d-flex" role="search" style="margin-left: auto;">
+                            <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" ng-model="searchAnimeList">
+                            <button class="btn btn-outline-secondary" type="submit" ng-click="filterAnimeList('', true)">Search</button>
+                        </form>
+
+                        
+                    </ul>
+                    <!-- follow button -->
+                    <!-- <button class="btn__follow"> Back home</button> -->
+                </div>
+                <!-- content body -->
+                
+                    <table class="table" style="color: white">
+                        <h1 style="color: white; text-align: center;">All Anime</h1>
+                        <thead>
+                          <tr>
+                            <th scope="col">Image	</th>
+                            <th scope="col">Title	</th>
+                            <th scope="col">Score	</th>
+                            <th scope="col">Type	</th>
+                            <th scope="col">Status </th>
+                            <th scope="col">Progress	</th>
+                            <th scope="col">Tags</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="anime in animeList">
+                            <td>
+                            	<img src="/img/{{anime.typeVideo.image}}" width="225px" height="311px" style="object-fit: cover"/>
+                            </td>
+                            <td>{{anime.typeVideo.name}}</td>
+                            <td>{{anime.score}}</td>
+                            <td>{{anime.typeVideo.type.name}}</td>
+                            <td>{{anime.status}}</td>
+                            <td>{{anime.process}}</td>
+                            <td>{{anime.note}}</td>
+                            <td><button class="btn" style="color: #bbb" data-bs-toggle="modal" data-bs-target="#editModal" ng-click="showEdit(anime)" ng-if="authen">edit</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" ng-if="authen">
+			  <div class="modal-dialog modal-dialog-centered">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">{{currentAnime.typeVideo.name}}</h5>
+			        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_edit_info">X</button>
+			      </div>
+			      <div class="modal-body">
+			      	<div style="display: flex; flex-direction: column;" >
+				      	<label for="process" class="form-label">Process: {{currentAnime.process}}</label>
+						<input type="range" class="form-range" min="0" max="{{currentAnime.typeVideo.episodes.length}}" value="0" step="1" id="process" ng-model="currentAnime.process">
+					</div>
+			      	<div class="form-group">
+					    <label for="status">Example select</label>
+					    <select class="form-control" id="status" ng-model="currentAnime.status">
+					      <option selected value="plantowatch">Plan to watch</option>
+					      <option value="watching">Watching</option>
+					      <option value="dropped">Dropped</option>
+					      <option value="onhold">On hold</option>
+					      <option value="completed">Completed</option>
+					    </select>
+					  </div>
+			      <label class="rating-label"><strong>Score: {{currentAnime.score * 2}}</strong>
+					  <input
+					    class="rating"
+					    max="5"
+					    oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)"
+					    step="0.5"
+					    style="--fill: #C8102E;--symbol:var(--heart);--value:{{currentAnime.score}}"
+					    type="range"
+					    value="{{currentAnime.score}}"
+					    ng-model="currentAnime.score">
+					</label>
+			      
+			        <div class="mb-3">
+					  <label for="#description" class="form-label">Tags</label>
+					  <textarea class="form-control" ng-model="currentAnime.note" id="description" rows="3">
+					  	
+					  </textarea>
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-danger" ng-click="deleteAnime()">Delete</button>
+			        <button type="button" class="btn btn-primary" ng-click="editAnime()">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+        </main>
+    </div>

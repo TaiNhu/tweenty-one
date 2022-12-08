@@ -8,7 +8,7 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="all,follow">
-	<!-- Choices.js-->
+	<!-- Choices.js -->
 	<link rel="stylesheet" href="/admin/vendor/choices.js/public/assets/styles/choices.min.css">
 	<!-- Google fonts - Muli-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
@@ -74,7 +74,7 @@
 								<use xlink:href="#find-1"> </use>
 							</svg></a></li>
 					<!-- Messages dropdown -->
-					
+
 					<!-- Tasks dropdown                   -->
 					<!-- Mega menu-->
 					<!-- Languages dropdown    -->
@@ -200,7 +200,7 @@
 	<!-- JavaScript files-->
 	<script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="/admin/vendor/just-validate/js/just-validate.min.js"></script>
-	<script src="/admin/vendor/chart.js/Chart.min.js"></script>
+	<!--<script src="/admin/vendor/chart.js/Chart.min.js"></script>-->
 	<script src="/admin/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
 	<!-- Main File-->
 	<script src="/admin/js/front.js"></script>
@@ -210,6 +210,7 @@
 		//   see more here 
 		//   https://css-tricks.com/ajaxing-svg-sprite/
 		// ------------------------------------------------------ //
+		
 		function injectSvgSprite(path) {
 
 			var ajax = new XMLHttpRequest();
@@ -222,6 +223,7 @@
 				document.body.insertBefore(div, document.body.childNodes[0]);
 			}
 		}
+		
 		var app = angular.module("myApp", ["ngRoute"]);
 		app.config(function ($routeProvider) {
 			$routeProvider
@@ -266,20 +268,20 @@
 					controller: "episodesController"
 				});
 		});
-		
+
 		app.directive('onFinishRender', function ($timeout) {
-		  return {
-		    restrict: 'A',
-		    link: function (scope, element, attr) {
-		      if (scope.$last === true) {
-		        $timeout(function () {
-		          scope.$emit('ngRepeatFinished');
-		        });
-		      }
-		    }
-		  }
+			return {
+				restrict: 'A',
+				link: function (scope, element, attr) {
+					if (scope.$last === true) {
+						$timeout(function () {
+							scope.$emit('ngRepeatFinished');
+						});
+					}
+				}
+			}
 		});
-		
+
 		app.controller("MainController", function ($scope, $http) {
 			$http.get("/login").then(function (data) {
 				$scope.user = data.data
@@ -297,13 +299,13 @@
 			$scope.reset = () => {
 				$scope.u = {}
 			}
-			if($routeParams.user) {
-				$http.get("/user/"+$routeParams.user).then(data => {
+			if ($routeParams.user) {
+				$http.get("/user/" + $routeParams.user).then(data => {
 					$scope.u = data.data
 				})
 			}
-			$scope.submit = function() {
-				if($scope.u.userName) {
+			$scope.submit = function () {
+				if ($scope.u.userName) {
 					let formData = new FormData()
 					let image = document.querySelector("#image")
 					formData.append("image", image.files[0])
@@ -329,13 +331,13 @@
 						}, error => console.log('loi'))
 					})
 				}
-				
+
 			}
-			
-			$scope.updateUser = function() {
-				if($scope.u.userName) {
+
+			$scope.updateUser = function () {
+				if ($scope.u.userName) {
 					let image = document.querySelector("#image")
-					if(image.files[0]) {
+					if (image.files[0]) {
 						let formData = new FormData()
 						formData.append("image", image.files[0])
 						$http({
@@ -359,7 +361,7 @@
 								$scope.reset()
 							}, error => console.log('loi'))
 						})
-					} else if (!image.files[0]) { 
+					} else if (!image.files[0]) {
 						let data = $scope.u
 						$http({
 							method: "POST",
@@ -372,38 +374,96 @@
 							$scope.reset()
 						}, error => console.log('loi'))
 					}
-					
+
 				}
 			}
-			
-			$scope.deleteUser = function() {
-				if($scope.u.userName) {
+
+			$scope.deleteUser = function () {
+				if ($scope.u.userName) {
 					console.log($scope.u.userName)
 					$http({
 						method: "DELETE",
-						url: "/admin/users/"+$scope.u.userName
+						url: "/admin/users/" + $scope.u.userName
 					}).then(data => {
 						console.log(data)
 						$scope.reset()
 					})
 				}
-			} 
-			
-			
-			
+			}
+
+
+
 		})
-		
-		app.controller("moviesController", function ($scope, $http){
+		app.controller("MoviesFormController", function($scope, $http, $routeParams){
+			$scope.movie = {}
+			console.log($scope.movie)
+			$scope.reset = () => {
+				$scope.movie = {}
+			}
+			$scope.submit1 = function(){
+				if($scope.movie.name){
+					let data = $scope.movie
+					$http({
+						method: "POST",
+						url: "/admin/movies",
+						headers: {
+								'Content-Type': 'application/json'
+							},
+							data: JSON.stringify(data)
+					}).then(data => {
+						alert("Thanh cong!")
+						console.log(data)
+						$scope.reset()
+					})
+				}
+			}
+		})
+		app.controller("EpisodesFormController", function($scope, $http, $routeParams){
+			$scope.episodes = {}
+			$scope.typevideos = []
+			$scope.reset = () => {
+				$scope.episodes = {}
+			}
+			if ($routeParams.id) {
+				$http.get("/admin/episodes/" + $routeParams.id).then(data => {
+					$scope.episodes = data.data
+					console.log(data)
+				})
+			}
+			$http.get("/admin/typevideos").then(data => {
+				$scope.typevideos = data.data
+			})
+			$scope.submit = function () {
+				if($scope.episodes.name){
+					let data = $scope.episodes
+					console.log(data)
+					if($routeParams.id){
+						data.id = $routeParams.id
+					}
+					$http({
+						method: "POST",
+						url: "/admin/episodes",
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						data: JSON.stringify(data)
+					}).then(data => {
+						alert("Thanh cong!")
+						$scope.reset()
+					})
+				}
+			}
+		})
+		app.controller("moviesController", function ($scope, $http) {
 			$scope.movies = []
-			$http.get("/admin/movies").then(function (data){
+			$http.get("/admin/movies").then(function (data) {
 				$scope.movies = data.data
 			})
 		})
-		app.controller("episodesController", function($scope, $http){
+		app.controller("episodesController", function ($scope, $http) {
 			$scope.episodes = []
-			$http.get("/admin/episodes").then(function(data){
+			$http.get("/admin/episodes").then(function (data) {
 				$scope.episodes = data.data
-				console.log($scope.episodes)
 			})
 		})
 		app.controller("TypeVideosController", function ($scope, $http) {
@@ -418,52 +478,56 @@
 				})
 			})
 		})
-		
+
 		app.controller("TypeVideosFormController", function ($scope, $http, $routeParams, $timeout) {
 			$scope.film = {}
+			injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
 			$scope.types = []
 			$scope.error = null
-			if($routeParams.film) {
-				$http.get("/films/"+$routeParams.film).then(data => {
+			if ($routeParams.film) {
+				$http.get("/films/" + $routeParams.film).then(data => {
 					$scope.film = data.data[0]
 					$scope.film.categories = data.data[0].videoGenres.map(value => value.category.id)
-					
-					$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+
+
+					$scope.$on('ngRepeatFinished', function () {
+						console.log('fda')
 						let categories = [...document.querySelectorAll("input.form-check-input")]
 						categories.forEach(value => {
-							if($scope.film.categories.some(v => v == value.value)) {
+							if ($scope.film.categories.some(v => v == value.value)) {
 								value.checked = true
 							}
 						})
-						$scope.filmCategories = (button) => {
-							if(!$scope.film.categories) {
-								$scope.film.categories = []
-							}
-							if(button.target.checked) {
-								$scope.film.categories.push(parseInt(button.target.value))
-							} else if (!button.target.checked) {
-								$scope.film.categories = $scope.film.categories.filter(value => value != parseInt(button.target.value))
-							}
-						}
 					});
-				})	
+				})
+			}
+			$scope.filmCategories = (button) => {
+				if (!$scope.film.categories) {
+					$scope.film.categories = []
+				}
+				if (button.target.checked) {
+					$scope.film.categories.push(parseInt(button.target.value))
+				} else if (!button.target.checked) {
+					$scope.film.categories = $scope.film.categories.filter(value => value != parseInt(button.target.value))
+				}
+				console.log($scope.film.categories)
 			}
 			$http.get("/categories/").then(data => {
 				$scope.categories = data.data
-				
+
 			})
 			$http.get("/types").then(data => {
 				$scope.types = data.data
 			})
-			
+
 			$http.get("/admin/movies").then(data => {
 				$scope.movies = data.data
 			})
-			
+
 			$scope.insert = () => {
 				let formData = new FormData()
 				let image = document.querySelector("input[type='file']")
-				if(image.files[0]) {
+				if (image.files[0]) {
 					formData.append("image", image.files[0])
 					$http({
 						method: "POST",
@@ -473,8 +537,9 @@
 						},
 						data: formData
 					}).then(data => {
-						document.querySelector("img.film").src = "/img/"+data.data.fileName
+						document.querySelector("img.film").src = "/img/" + data.data.fileName
 						let info = {...$scope.film, image: data.data.fileName}
+						console.log($scope.film)
 						$http({
 							method: "POST",
 							url: "/admin/typevideos",
@@ -502,20 +567,31 @@
 					})
 				}
 			}
-			
+
 			$scope.delete = () => {
+				if($scope.film.id) {
+					$http({
+						method: "DELETE",
+						url: "/admin/typevideos/"+$scope.film.id
+					}).then(data => {
+						$scope.reset()
+						$scope.error = 'Xoa thanh cong'
+					})
+				} else {
+					$scope.error = "Khong co id"
+				}
 				
 			}
-			
+
 			$scope.reset = () => {
 				$scope.film = {}
 			}
-			
-			
-			
+
+
+
 		})
-		
-		
+
+
 		app.controller("HomeController", function ($scope, $http) {
 			var ctx = document.querySelector('#doughnut').getContext('2d')
 
@@ -690,7 +766,6 @@
 		// while using file:// protocol
 		// pls don't forget to change to your domain :)
 		injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
-
 	</script>
 	<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
