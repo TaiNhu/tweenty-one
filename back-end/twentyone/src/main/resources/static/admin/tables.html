@@ -385,6 +385,7 @@
 						method: "DELETE",
 						url: "/admin/users/" + $scope.u.userName
 					}).then(data => {
+						alert("thanh cong!")
 						console.log(data)
 						$scope.reset()
 					})
@@ -411,7 +412,6 @@
 							},
 							data: JSON.stringify(data)
 					}).then(data => {
-						alert("Thanh cong!")
 						console.log(data)
 						$scope.reset()
 					})
@@ -450,6 +450,19 @@
 					}).then(data => {
 						alert("Thanh cong!")
 						$scope.reset()
+					})
+				}
+			}
+			$scope.deleteEpisode = function () {
+				if ($scope.episodes.id) {
+					$http({
+						method: "DELETE",
+						url: "/admin/episodes/" + $scope.episodes.id
+					}).then(data => {
+						alert("thanh cong!")
+						$scope.reset()
+					},function(error){
+						console.log(error)
 					})
 				}
 			}
