@@ -41,7 +41,7 @@ public class SummaryServiceImpl implements SummaryService{
 	@Override
 	public List<Object[]> top5Follow() {
 		// TODO Auto-generated method stub
-		String sql = "select tv.id, tv.name, count(al.id) as count from type_videos tv "
+		String sql = "select top 5 tv.id, tv.name, count(al.id) as count from type_videos tv "
 				+ "inner join anime_list al on al.movie_id = tv.id "
 				+ "group by tv.id, tv.name";
 		Query q = em.createNativeQuery(sql);
