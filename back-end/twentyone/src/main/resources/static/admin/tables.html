@@ -434,7 +434,7 @@
 				$scope.typevideos = data.data
 			})
 			$scope.submit = function () {
-				if($scope.episodes.name){
+				if($scope.episodes.link){
 					let data = $scope.episodes
 					console.log(data)
 					if($routeParams.id){
@@ -451,6 +451,8 @@
 						alert("Thanh cong!")
 						$scope.reset()
 					})
+				} else {
+					alert("Quên nhập link");
 				}
 			}
 		})

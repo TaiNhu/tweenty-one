@@ -96,7 +96,7 @@ app.controller("loginCtrl", function($scope, $http, $window) {
 		}).then(data => {
 			$scope.error = false
 			localStorage.setItem("user", JSON.stringify(data.data))
-			if(data.data.role == "USER") {
+			if (data.data.role == "USER") {
 				$window.location.href = '/index.html';
 			} else if (data.data.role = "ADMIN") {
 				$window.location.href = '/admin/tables.html/#!/';
@@ -347,15 +347,14 @@ app.controller("watchAnimeCtrl", function($scope, $http, $routeParams) {
 	$scope.commentDisabled = false
 	$scope.currentEpisode = $routeParams.episode
 	$http.get(`/films/${$routeParams.id}`).then(data => {
-		console.log(data)
-		
+
 		if (data.data.length <= 0) {
 			$location.path("")
 		} else {
 			$scope.films = data.data
+			let video = document.querySelector("video")
 			if (!$scope.currentEpisode) {
 				$scope.currentEpisode = data.data[0].episodes[0].id
-				let video = document.querySelector("video")
 				video.load()
 				$http({
 					method: "POST",
@@ -366,14 +365,13 @@ app.controller("watchAnimeCtrl", function($scope, $http, $routeParams) {
 					data: JSON.stringify({ ...data.data[0], count: data.data[0].count + 1 })
 				})
 			}
-			$http.get("/episodes/"+ $scope.currentEpisode, {
-				headers: {
-					'Range': 0
+			$http.get("/episodes/normal/" + $scope.currentEpisode || data.data[0].episodes[0].id).then(function(a) {
+				$scope.link = a.data.response
+				if (video.querySelector('source').src) {
+					video.querySelector('source').src = a.data.response
+					video.load()
 				}
-			}).then(function (data){
-				console.log(data)
-				$scope.link = data.data
-			})
+			}, er => er)
 			$scope.commentDisabled = data.data[0].reviews.some(v => v.user.userName == $scope.user.userName)
 		}
 	},
@@ -459,46 +457,53 @@ app.controller("profileCtrl", function($scope, $http, $routeParams, $location) {
 
 app.controller("animelistCtrl", function($scope, $http, $routeParams, $location) {
 	$scope.user = $routeParams.user || JSON.parse(localStorage.getItem("user") || "{}").userName
+	$scope.currentAnime = {}
 	$scope.authen = false
 	if ($scope.user) {
-		let closeEditInfo = document.querySelector("#close_edit_info")
 		$scope.animeList = []
 		$http.get(`/animelist/${$scope.user}`).then(data => {
+			let closeEditInfo = null;
 			$scope.animeList = data.data
 			$scope.originList = data.data
 			$http.get("/user/" + $scope.user).then(data => {
+				let local = JSON.parse(localStorage.getItem("user") || "{}")
 				if (data.data.userName == local.userName && data.data.password == local.password) {
 					$scope.authen = true
-					$scope.showEdit = function(anime) {
-						$scope.currentAnime = { ...anime, score: anime.score / 2 }
-					}
-					$scope.editAnime = () => {
-						if ($scope.currentAnime.id) {
-							$http.put(
-								"/animelist/modify/" + $scope.currentAnime.id,
-								JSON.stringify({ ...$scope.currentAnime, score: $scope.currentAnime.score * 2 }), {
-								'Content-Type': 'application/json'
-							}).then(data => {
-								$scope.animeList[$scope.animeList.findIndex(value => value.id == data.data.id)] = data.data
-								$scope.currentAnime = {}
-								closeEditInfo.click()
-							}, error => console.log(error))
-						}
-					}
-					$scope.deleteAnime = () => {
-						if ($scope.currentAnime.id) {
-							$http({
-								method: "DELETE",
-								url: "/animelist/modify/" + $scope.currentAnime.typeVideo.id + "/" + $scope.user
-							}).then(data => {
-								$scope.animeList = $scope.animeList.filter(value => value.id != $scope.currentAnime.id)
-								$scope.currentAnime = {}
-								closeEditInfo.click()
-							}, error => console.log(error))
-						}
-					}
 				}
+
 			})
+			$scope.showEdit = function(anime) {
+				if ($scope.authen) {
+					closeEditInfo = document.querySelector("#close_edit_info")
+					$scope.currentAnime = { ...anime, score: anime.score / 2 }
+				}
+
+			}
+			$scope.deleteAnime = () => {
+				if ($scope.currentAnime.id) {
+					$http({
+						method: "DELETE",
+						url: "/animelist/modify/" + $scope.currentAnime.typeVideo.id + "/" + $scope.user
+					}).then(data => {
+						$scope.animeList = $scope.animeList.filter(value => value.id != $scope.currentAnime.id)
+						$scope.currentAnime = {}
+						closeEditInfo.click()
+					}, error => console.log(error))
+				}
+			}
+			$scope.editAnime = () => {
+				if ($scope.currentAnime.id) {
+					$http.put(
+						"/animelist/modify/" + $scope.currentAnime.id,
+						JSON.stringify({ ...$scope.currentAnime, score: $scope.currentAnime.score * 2 }), {
+						'Content-Type': 'application/json'
+					}).then(data => {
+						$scope.animeList[$scope.animeList.findIndex(value => value.id == data.data.id)] = data.data
+						$scope.currentAnime = {}
+						closeEditInfo.click()
+					}, error => console.log(error))
+				}
+			}
 			$scope.filterAnimeList = function(filter, search) {
 				if (!search) {
 					if (!filter) {
