@@ -104,7 +104,7 @@ public class EpisodeRestController {
 			Optional<Episode> episode = episodeService.findById(id);
 			if(episode.isPresent()) {
 				episodeService.delete(episode.get());
-				return new ResponseEntity("Thành công", HttpStatus.OK);
+				return ResponseEntity.ok().build();
 			}
 			return new ResponseEntity("Sai trường", HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
