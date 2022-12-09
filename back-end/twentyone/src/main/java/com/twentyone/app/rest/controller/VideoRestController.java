@@ -67,6 +67,7 @@ public class VideoRestController {
 		return ResponseEntity.ok(typeVideoService.findByReviewASC());
 	}
 	
+	
 	@PostMapping("")
 	public ResponseEntity post(@RequestBody TypeVideo typeVideo) {
 		try {
