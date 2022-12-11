@@ -30,7 +30,7 @@ public class VideoRestController {
 	@GetMapping("/lastest")
 	public Object searchVideo() {
 		int[] a = {};
-		String[] b = {"name", "DESC"};
+		String[] b = {"name", "ASC"};
 		return typeVideoService.filter(a, Optional.of(""),  b);
 	}
 	
