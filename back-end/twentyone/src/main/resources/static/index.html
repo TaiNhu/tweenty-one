@@ -7,8 +7,8 @@
 <meta name="keywords" content="Anime, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Anime | Template</title>
-
+<title>Twenty One</title>
+<link rel="icon" href="/img/logo.png">
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
@@ -90,7 +90,7 @@
 					<div class="header__right d-flex">
 						<a href="#" class="search-switch"><span class="icon_search"></span></a>
 						<a href="#!profile" class="d-flex" style="gap: 10px; align-items: center;">
-						<img id="avatar" src="{{avatar || '/img/'+user.image}}" height="30px" width="30px" style="border-radius: 50%"/> 
+						<img id="avatar" src="{{avatar || '/img/'+user.image}}" height="30px" width="30px" style="border-radius: 50%" ng-if="avatar || user.image"/> 
 						<span
 							ng-bind="user.userName"
 							style="font-size: 10px; display: inline-block; width: 90px; text-overflow: ellipsis; overflow: hidden; text-align: left;"></span></a>
